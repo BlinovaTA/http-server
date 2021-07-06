@@ -3,11 +3,15 @@ const http = require("http");
 const INTERVAL = process.env.HTTP_SERVER_INTERVAL || 1000;
 const END = process.env.HTTP_SERVER_END || 10000;
 
+let id = 0;
+
 http
   .createServer((request, response) => {
     if (request.method === "GET") {
+      const currentId = ++id;
+
       const interval = setInterval(() => {
-        response.write(`${new Date().toUTCString()}\n`);
+        console.log(`Client ${currentId}: ${new Date().toUTCString()}`)
       }, INTERVAL);
 
       setTimeout(() => {
